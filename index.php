@@ -8,7 +8,7 @@ function fetcher($url)  {
     return json_decode($data, true);
 }
 
-$data = fetcher($baseURL . "pokemon/" . $random_onLoad);
+$data = fetcher($api_url . "pokemon/" . $random_onLoad);
 
 ?>
 
@@ -43,8 +43,17 @@ $data = fetcher($baseURL . "pokemon/" . $random_onLoad);
             <div class="col-md-6 half">
                 <div id="info">
                     <div class="pokeID text-center">
-                        <span>#</span><span id="id"></span>
-                        <h1 id="name"></h1>
+                        <span>#</span>
+                        <span id="id">
+                            <?php
+                            echo $data["id"]
+                            ?>
+                        </span>
+                        <h1 id="name">
+                            <?php
+                                echo $data["name"]
+                            ?>
+                        </h1>
                     </div>
 
                     <div class="pokemonimage text-center">
@@ -59,7 +68,9 @@ $data = fetcher($baseURL . "pokemon/" . $random_onLoad);
                         <button id="shiny-back" class="m-2 px-3">shiny-back</button>
                     </div>
                     <div class="text">
-                        <p id="infoText"></p>
+                        <p id="infoText">
+                            <?php echo $data ?>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -108,6 +119,7 @@ $data = fetcher($baseURL . "pokemon/" . $random_onLoad);
             </div>
         </div>
     </div>
+
 
 <script src="script.js" charset="UTF-8"></script>
 </body>
