@@ -1,0 +1,121 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+    color:  #0f380f;
+}
+body{
+    background-image: url("images/background.jpg");
+    background-size: cover;
+}
+.container{
+    background-color: #bf0006;
+    border: 2px solid darkred;
+    padding-bottom: 25px;
+    margin-top: 12px;
+}
+
+ul{
+    list-style-position: inside;
+}
+
+li{
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+button{
+    background-color: #62b4e6;
+    border-radius: 25px;
+}
+
+.half{
+    border: 3px solid darkred;
+    padding-bottom: 10px;
+}
+#pokemon{
+    background-image: radial-gradient(#c9ffcb, #9bbc0f);
+    border: 2px solid #306230;
+}
+
+.pokeID{
+    background-image: radial-gradient(#c9ffcb, #9bbc0f);
+    border: 2px solid #306230;
+}
+
+.pokeID span{
+    font-size: 2em;
+}
+
+.pokeID h1{
+    font-size: 2em;
+}
+
+#styleButtons button{
+    font-size: 10px;
+}
+#pokeBackground{
+    background-image: radial-gradient(#c9ffcb, #9bbc0f);
+    height: 250px;
+    width: 250px;
+    margin: auto;
+}
+
+#name{
+    display: inline-block;
+}
+#main-pokemon{
+    height: 250px;
+    border: 2px solid #306230;
+    transform:rotateY(180deg);
+}
+
+.text{
+    background-image: radial-gradient(#c9ffcb, #9bbc0f);
+    border: 2px solid #306230;
+    padding: 10px;
+}
+
+#infoText{
+    height: 125px;
+    overflow: auto;
+}
+
+#information-pokemon{
+    margin-top:10px;
+    margin-bottom: 15px;
+}
+
+#moves{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#moves li{
+    margin: 10px;
+}
+
+#evoBox{
+    height: 194px;
+    padding:0;
+    margin: 0;
+}
+
+#evolutions{
+    border: none;
+    padding: 5px 0 0;
+    margin: 0;
+}
+
+.arrows{
+    margin-top: 10px;
+}
+
+.arrows button{
+    font-size:30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0 auto;
+}
+
