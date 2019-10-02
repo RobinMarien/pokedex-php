@@ -12,6 +12,7 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +59,7 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
 
                     <div class="pokemonimage text-center">
                         <div id="pokeBackground">
-                            <img id="main-pokemon">
+                            <img id="main-pokemon" src="<?php echo $data["sprites"]["front_default"]?>">
                         </div>
                     </div>
                     <div id="styleButtons" class="text-center">
@@ -81,10 +82,23 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
                         <div id="information-pokemon" class="text">
                             <p>Type:</p>
                             <ul id="type">
+
                             </ul>
-                            <p>Height: <span id="height"></span></p>
-                            <p>Weight: <span id="weight"></span></p>
-                            <p>HP: <span id="hp"></span></p>
+                            <p>Height:
+                                <span id="height">
+                                    <?php echo ($data["height"]/10) ?> m
+                                </span>
+                            </p>
+                            <p>Weight:
+                                <span id="weight">
+                                    <?php echo ($data["weight"]/10) ?> kg
+                                </span>
+                            </p>
+                            <p>HP:
+                                <span id="hp">
+                                    <?php echo $data["stats"][5]["base_stat"] ?>
+                                </span>
+                            </p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -93,8 +107,8 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
                             <p class="movement">Moves</p>
                             <ul id="move-list">
 
-
                             </ul>
+
                         </div>
                     </div>
                 </div>
@@ -102,7 +116,14 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
                     <div id="evolutions" class="text-center">
                         <p>Evolved from</p>
                         <img id="pre-evolution">
-                        <p>#<span id="preId"></span> <span id="preName"></span></p>
+                        <p>#
+                            <span id="preId">
+
+                            </span>
+                            <span id="preName">
+
+                            </span>
+                        </p>
                     </div>
                 </div>
 
@@ -121,6 +142,10 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
     </div>
 
 
-<script src="script.js" charset="UTF-8"></script>
+
+
+<!--<script src="script.js" charset="UTF-8"></script>-->
 </body>
 </html>
+
+<?php var_dump ($data) ?>

@@ -50,6 +50,7 @@ button{
 
 .pokeID h1{
     font-size: 2em;
+    text-transform: uppercase;
 }
 
 #styleButtons button{
