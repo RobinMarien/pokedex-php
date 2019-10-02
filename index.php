@@ -9,6 +9,9 @@ function fetcher($url)  {
 }
 
 $data = fetcher($api_url . "pokemon/" . $random_onLoad);
+$species = fetcher ($data["species"]["url"]);
+
+var_dump ($species);
 
 ?>
 
@@ -70,7 +73,7 @@ $data = fetcher($api_url . "pokemon/" . $random_onLoad);
                     </div>
                     <div class="text">
                         <p id="infoText">
-                            <?php echo $data ?>
+
                         </p>
                     </div>
                 </div>
