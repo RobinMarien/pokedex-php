@@ -1,18 +1,56 @@
 <?php
 
-$api_url = "https://pokeapi.co/api/v2/";
-$random_onLoad = rand($min = 1, $max = 806);
+define('URL','https://pokeapi.co/api/v2/pokemon/');
+define('MAX_MOVES', 4);
+
+function getMoves(array $data) {
+    $moves = (array)array_rand($data['moves'], min(MAX_MOVES, count($data['moves'])));
+    foreach($moves AS $move) {
+        $moveName = $data['moves'][$move]['move']['name'];
+        echo '<li>'.$moveName.'</li>';
+    }
+}
+
+function getTypes(array $data) {
+    $types = (array)$data['types'];
+    foreach($types AS $type) {
+        $typeName = $type['type']['name'];
+        echo '<li>'.$typeName.'</li>';
+    }
+}
+
+if(empty($_GET['pokemon'])) {
+    $_GET['pokemon'] = 1;
+}
 
 function fetcher($url)  {
     $data = file_get_contents($url);
     return json_decode($data, true);
 }
 
-$data = fetcher($api_url . "pokemon/" . $random_onLoad);
+// Function to gather all english flavor texts into one array
+function flavorCatcher(array $species)
+{
+    $flavor_en = [];
+    foreach ($species["flavor_text_entries"] AS $flavor_text) {
+        if ($flavor_text["language"]["name"] === "en") {
+            $flavor_en[] = $flavor_text["flavor_text"];
+        }
+    }
+    return $flavor_en;
+}
+
+$data = fetcher(URL . strtolower($_GET['pokemon']));
+
 $species = fetcher ($data["species"]["url"]);
+$previous = fetcher (URL.$species["evolves_from_species"]['name']);
 
-var_dump ($species);
-
+if ($species["evolves_from_species"] != null){;
+    $display = 'block;';
+}
+else{
+    $display = 'none;';
+}
 ?>
 
 
@@ -36,8 +74,8 @@ var_dump ($species);
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <form id="search">
-                    <input id="pokemon" type="text" name="input-field" placeholder="Enter name or ID" required>
+                <form id="search" method="get">
+                    <input id="pokemon" type="text" name="pokemon" placeholder="Enter name or ID" required>
                     <button id="run" class="button" type="submit">Search</button>
                 </form>
             </div>
@@ -73,7 +111,10 @@ var_dump ($species);
                     </div>
                     <div class="text">
                         <p id="infoText">
-
+                            <?php // Gather all english flavorTexts and display a random one from that array
+                            $flavor_en = flavorCatcher($species);
+                            $flavor_rand = array_rand($flavor_en);
+                            echo '<i>' . $flavor_en[$flavor_rand] . '</i>'; ?>
                         </p>
                     </div>
                 </div>
@@ -85,7 +126,7 @@ var_dump ($species);
                         <div id="information-pokemon" class="text">
                             <p>Type:</p>
                             <ul id="type">
-
+                                <?php getTypes($data) ?>
                             </ul>
                             <p>Height:
                                 <span id="height">
@@ -106,49 +147,45 @@ var_dump ($species);
                     </div>
                     <div class="col-md-6">
                         <div id="moves" class="text">
-
                             <p class="movement">Moves</p>
                             <ul id="move-list">
-
+                                <?php getMoves($data) ?>
                             </ul>
-
                         </div>
                     </div>
                 </div>
                 <div id= "evoBox" class="text">
-                    <div id="evolutions" class="text-center">
+                    <div id='evolutions' class='text-center' style="display:<?php echo $display ?>">
                         <p>Evolved from</p>
-                        <img id="pre-evolution">
-                        <p>#
-                            <span id="preId">
+                        <a href="?pokemon=<?php echo $previous['id'] ?>">
+                            <img id='pre-evolution' src="<?php echo $previous['sprites']['front_default']?>">
+                            <p>#
+                                <span id='preId'>
+                                    <?php echo $previous["id"] ?>
+                                </span>
+                                <span id='preName'>
+                                    <?php echo $previous["name"] ?>
+                                </span>
+                            </p>
+                        </a>
 
-                            </span>
-                            <span id="preName">
-
-                            </span>
-                        </p>
                     </div>
                 </div>
-
                 <div class="arrows row justify-content-around text-center">
                     <div class="col-6">
-                        <button id="prev">&lt;</button>
+                        <a href="?pokemon=<?php echo ($data['id']-1) ?>">
+                            <button id="prev">&lt;</button>
+                        </a>
                     </div>
                     <div class="col-6">
-                        <button id="next">&gt;</button>
+                        <a href="?pokemon=<?php echo ($data['id']+1) ?>">
+                            <button id="next">&gt;</button>
+                        </a>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
-
-
-
 <!--<script src="script.js" charset="UTF-8"></script>-->
 </body>
 </html>
-
-<?php var_dump ($data) ?>
